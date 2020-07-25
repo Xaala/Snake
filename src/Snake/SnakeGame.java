@@ -9,8 +9,8 @@ import java.util.List;
 
 public class SnakeGame extends Applet implements Runnable, KeyListener
 {
-    private int WINDOW_WIDTH = 400;
-    private int WINDOW_HEIGHT = 400;
+    public static int WINDOW_WIDTH = 400;
+    public static int WINDOW_HEIGHT = 400;
     Graphics gfx;
     Image img;
     Thread thread;
@@ -18,6 +18,7 @@ public class SnakeGame extends Applet implements Runnable, KeyListener
     SnakeInstance playerTwo;
 
     List<SnakeInstance> players;
+    Token token;
 
     public void init()
     {
@@ -37,6 +38,8 @@ public class SnakeGame extends Applet implements Runnable, KeyListener
         //Player 2
         players.add(new SnakeInstance(100,200));
         players.get(1).setSnakeColor(Color.BLUE);
+
+        token = new Token(players);
 
         thread = new Thread(this);
         thread.start();
@@ -114,6 +117,8 @@ public class SnakeGame extends Applet implements Runnable, KeyListener
             }
         }
 
+        token.draw(gfx);
+
         g.drawImage(img, 0, 0, null);
     }
 
@@ -133,11 +138,14 @@ public class SnakeGame extends Applet implements Runnable, KeyListener
         //Forever
         for(;;)
         {
-            if (players.get(0).isAlive())
-                players.get(0).move();
-
-            if (players.get(1).isAlive())
-                players.get(1).move();
+            for (int i = 0; i < players.size(); i++)
+            {
+                if (players.get(i).isAlive())
+                {
+                    players.get(i).move();
+                    token.snakeCollision(players.get(i));
+                }
+            }
 
             this.checkKillSnake();
 

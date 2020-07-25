@@ -63,6 +63,11 @@ public class SnakeInstance
 
             //Actually update head
             snakePoints.set(0, newStart);
+            if (elongate)
+            {
+                snakePoints.add(last_temp); //re-add last point
+                elongate = false;
+            }
         }
     }
 
@@ -73,7 +78,7 @@ public class SnakeInstance
 
         for (int i = 1; i < otherSnake.snakePoints.size(); i++)
         {
-            if (otherSnake.snakePoints.get(i).getX() == x && otherSnake.snakePoints.get(i).getY() == y)
+            if (otherSnake.isAlive() && otherSnake.snakePoints.get(i).getX() == x && otherSnake.snakePoints.get(i).getY() == y)
                 return  true;
         }
 
@@ -84,7 +89,7 @@ public class SnakeInstance
     {
         //Special case for if the heads crash into each other, this kills both snakes
 
-        if (this.getX() == otherSnake.snakePoints.get(0).getX() && this.getY() == otherSnake.snakePoints.get(0).getY())
+        if (otherSnake.isAlive() && this.getX() == otherSnake.snakePoints.get(0).getX() && this.getY() == otherSnake.snakePoints.get(0).getY())
             return true;
 
         return false;
