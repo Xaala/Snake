@@ -263,6 +263,7 @@ public class SnakeGame extends Applet implements Runnable, KeyListener
         }
     }
 
+
     @Override
     public void keyReleased(KeyEvent e)
     {
