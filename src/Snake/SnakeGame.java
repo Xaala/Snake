@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.abs;
+
 public class SnakeGame extends Applet implements Runnable, KeyListener
 {
     public static int WINDOW_WIDTH = 400;
@@ -32,17 +34,67 @@ public class SnakeGame extends Applet implements Runnable, KeyListener
         players = new ArrayList<SnakeInstance>();
 
         //Player 1
-        players.add(new SnakeInstance(100,100));
-        players.get(0).setSnakeColor(Color.GREEN);
+        addSnake(Color.GREEN);
 
         //Player 2
-        players.add(new SnakeInstance(100,200));
-        players.get(1).setSnakeColor(Color.BLUE);
+        addSnake(Color.BLUE);
 
         token = new Token(players);
 
         thread = new Thread(this);
         thread.start();
+    }
+
+    public void reset()
+    {
+        players.clear();
+
+        //Player 1
+        addSnake(Color.GREEN);
+
+        //Player 2
+        addSnake(Color.BLUE);
+
+        token = new Token(players);
+    }
+
+    public void addSnake(Color SnakeColor)
+    {
+        //Pick random head pos
+            //Inner W-100,H-100 square
+            //Not near/in other snake
+        boolean valid = false;
+        int startX = 0;
+        int startY = 0;
+        while (valid == false) {
+            startX = 50 + (int) (Math.random() * (WINDOW_WIDTH - 75));
+            startY = 50 + (int) (Math.random() * (WINDOW_HEIGHT - 75));
+
+            //Make sure we're not too close to another snake
+            boolean closeToSnake = false;
+            for (int i = 0; i < players.size(); i++)
+            {
+                //Calculate distance from current snake's points
+                for (int j = 0; j < players.get(i).snakePoints.size(); j++)
+                {
+                    //Is within 20 px
+                    if (abs(startX - players.get(i).snakePoints.get(j).getX()) < 20
+                            ||  abs(startY - players.get(i).snakePoints.get(j).getY()) < 20)
+                    {
+                        closeToSnake = true;
+                    }
+                }
+            }
+
+            //Valid if not close to another snake.
+            if (closeToSnake == false)
+            {
+                valid = true;
+            }
+        }
+
+        players.add(new SnakeInstance(startX, startY));
+        players.get(players.size()-1).setSnakeColor(SnakeColor);
     }
 
     public void checkKillSnake()
@@ -260,6 +312,11 @@ public class SnakeGame extends Applet implements Runnable, KeyListener
                     players.get(1).setXDir(1);
                 }
             }
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_R)
+        {
+            this.reset();
         }
     }
 
