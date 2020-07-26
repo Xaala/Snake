@@ -8,6 +8,9 @@ Arrow Keys
 ### Player 2 
 W,A,S,D
 
+### Reset
+R
+
 # Purpose 
 This is my first forray into graphical applications in Java. It uses a few deprecated technologies (mainly, Java Applet which has been dropped by pretty much every browser) but was a fun exercise nonetheless.
 
