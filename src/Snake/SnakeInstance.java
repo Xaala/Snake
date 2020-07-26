@@ -40,9 +40,19 @@ public class SnakeInstance
     public void draw(Graphics g)
     {
         g.setColor(snakeColor);
+        boolean large = true;
         for (Point p: snakePoints)
         {
-            g.fillRect(p.getX(), p.getY(), 4,4);
+            if (large == true)
+            {
+                large = false;
+                g.fillRect(p.getX()+1, p.getY()+1, 6,6);
+            }
+            else
+            {
+                large = true;
+                g.fillRect(p.getX(), p.getY(), 4,4);
+            }
         }
     }
 
@@ -95,66 +105,120 @@ public class SnakeInstance
         return false;
     }
 
+    /**
+     *
+     * @return Returns moving direction of snake in X-Axis
+     */
     public int getXDir()
     {
         return xDir;
     }
 
+    /**
+     *
+     * @return Returns moving direction of snake in Y-Axis
+     */
     public int getYDir()
     {
         return yDir;
     }
 
+    /**
+     *
+     * @return Returns X position of snake's head.
+     */
     public int getX()
     {
         return snakePoints.get(0).getX();
     }
 
+    /**
+     *
+     * @return Returns Y position of snake's head.
+     */
     public int getY()
     {
         return snakePoints.get(0).getY();
     }
 
-    public void setXDir(int xDir)
-    {
-        this.xDir = xDir;
-    }
-
-    public void setYDir(int yDir)
-    {
-        this.yDir = yDir;
-    }
-
-    public void setSnakeColor(Color snakeColor)
-    {
-        this.snakeColor = snakeColor;
-    }
-
+    /**
+     *
+     * @return Returns boolean representing if the snake has started moving or not.
+     */
     public boolean isMoving()
     {
         return isMoving;
     }
 
-    public void setMoving(boolean moving)
-    {
-        isMoving = moving;
-    }
-
+    /**
+     *
+     * @return Boolean representing if the "Elongate" flag is set.
+     */
     public boolean isElongate()
     {
         return elongate;
     }
 
+    /**
+     *
+     * @return Boolean representing if the "Alive" flag is set.
+     */
+    public boolean isAlive()
+    {
+        return alive;
+    }
+
+    /**
+     *
+     * @param xDir New X-Axis movement direction of snake.
+     */
+    public void setXDir(int xDir)
+    {
+        this.xDir = xDir;
+    }
+
+    /**
+     *
+     * @param yDir New Y-Axis movement direction of snake.
+     */
+    public void setYDir(int yDir)
+    {
+        this.yDir = yDir;
+    }
+
+    /**
+     *
+     * @param snakeColor Sets draw color for this snake.
+     */
+    public void setSnakeColor(Color snakeColor)
+    {
+        this.snakeColor = snakeColor;
+    }
+
+    /**
+     *
+     * @param moving Sets moving flag, if true, snake begins movement.
+     */
+    public void setMoving(boolean moving)
+    {
+        isMoving = moving;
+    }
+
+    /**
+     *
+     * @param elongate Sets the Elongate flag, this causes the snake to grow by one segment.
+     */
     public void setElongate(boolean elongate)
     {
         this.elongate = elongate;
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
+    /**
+     *
+     * @param alive Sets the Alive flag, this flag controls if the snake is drawn and can be interacted with.
+     */
+    public void setAlive(boolean alive)
+    {
         this.alive = alive;
     }
 

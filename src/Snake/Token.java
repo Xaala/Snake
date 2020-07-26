@@ -56,12 +56,12 @@ public class Token {
     //check if some snake got the Token
     public boolean snakeCollision(SnakeInstance snk)
     {
-        int snakeX = snk.getX() + 2; //center of rect
-        int snakeY = snk.getY() + 2;
+        int snakeX = snk.getX() + 3; //center of rect
+        int snakeY = snk.getY() + 3;
 
-        if (snakeX >= x-1 && snakeX <= (x + 7))
+        if (snakeX >= x-2 && snakeX <= (x + 8))
         {
-            if (snakeY >= y-1 && snakeY <= (y +7))
+            if (snakeY >= y-2 && snakeY <= (y +8))
             {
                 changePosition();
                 snk.setElongate(true);
