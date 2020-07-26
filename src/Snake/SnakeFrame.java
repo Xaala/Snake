@@ -19,7 +19,6 @@ public class SnakeFrame extends Frame
             }
         });
 
-
         this.setSize(450,450);
         this.add(game, BorderLayout.CENTER);
         this.setVisible(true);
